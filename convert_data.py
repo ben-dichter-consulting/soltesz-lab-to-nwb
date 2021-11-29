@@ -3,22 +3,10 @@ from pathlib import Path
 from isodate import duration_isoformat
 from datetime import timedelta, datetime
 import os
+from datanwbconverter import DataNWBConverter
 
 from pprint import pprint
 
-# from datanwbconverter import DataNWBConverter
-from nwb_conversion_tools import NWBConverter
-from treadmillbehaviordatainterface import TreadmillBehaviorDataInterface
-
-class DataNWBConverter(NWBConverter):
-    """Primary conversion class for the Soltesz Lab processing pipeline."""
-
-    data_interface_classes = dict(
-        TreadmillData=TreadmillBehaviorDataInterface
-    )
-
-source_schema = DataNWBConverter.get_source_schema()
-pprint(source_schema["properties"], width=120)
 
 # Hard-coded parameters
 #sampling_rate=10000 # sampling rate for ephys data

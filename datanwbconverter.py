@@ -2,7 +2,7 @@
 
 from nwb_conversion_tools import NWBConverter
 
-from speedbehaviordatainterface import TreadmillBehaviorDataInterface
+from treadmillbehaviordatainterface import TreadmillBehaviorDataInterface
 
 class DataNWBConverter(NWBConverter):
     """Primary conversion class for the Soltesz Lab processing pipeline."""
