@@ -39,8 +39,8 @@ class TreadmillBehaviorDataInterface(BaseDataInterface):
             data=H5DataIO(velocity, compression="gzip"),
             unit="cm/s",
             resolution=np.nan,
-            rate=fs,
-            starting_time=0,
+            rate=float(fs),
+            starting_time=float(0),
         )
         behavioral_processing_module = check_module(
             nwbfile, "behavior", "contains processed behavioral data"

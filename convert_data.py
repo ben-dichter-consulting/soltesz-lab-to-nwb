@@ -21,7 +21,7 @@ animal_path = os.path.join(base_path, animal)
 
 # Name the NWBFile and point to the desired save path
 # nwbfile_path = os.path.join(animal_path ,'FullTesting.nwb')
-nwbfile_path = os.path.join("./FullTesting.nwb")
+nwbfile_path = os.path.join(animal_path, "FullTesting.nwb")
 
 # Point to the various files for the conversion
 speed_file_path = os.path.join(animal_path, "GRIN" + animal[2:] + suffix + ".speed.npy")
@@ -70,4 +70,6 @@ converter.run_conversion(
     metadata=metadata,
     nwbfile_path=str(nwbfile_path),
     conversion_options=conversion_options,
+    save_to_file=True,  # If False, this instead returns the NWBFile object in memory
+    overwrite=True,  # If False, this appends an existing file
 )
