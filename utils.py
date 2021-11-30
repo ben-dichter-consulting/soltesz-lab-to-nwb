@@ -5,14 +5,13 @@ def check_module(nwbfile, name, description=None):
     ----------
     nwbfile: pynwb.NWBFile
     name: str
-    description: str | None (optional)
+    description: str, optional
     Returns
     -------
     pynwb.module
     """
     if name in nwbfile.modules:
         return nwbfile.modules[name]
-    else:
-        if description is None:
-            description = name
-        return nwbfile.create_processing_module(name, description)
+    if description is None:
+        description = name
+    return nwbfile.create_processing_module(name, description)

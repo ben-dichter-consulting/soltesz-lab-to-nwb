@@ -1,4 +1,4 @@
-"""Authors: Cesar Echavarria and Ben Dichter."""
+"""Authors: Cesar Echavarria."""
 from pynwb import NWBFile, TimeSeries
 from nwb_conversion_tools.basedatainterface import BaseDataInterface
 from nwb_conversion_tools.utils.json_schema import get_base_schema, get_schema_from_hdmf_class
@@ -27,17 +27,12 @@ class TreadmillBehaviorDataInterface(BaseDataInterface):
     #     metadata_schema['required'].append('TimeSeries')
     #     return metadata_schema
 
-    def run_conversion(self, nwbfile: NWBFile, metadata: dict):
+    def run_conversion(self, nwbfile: NWBFile, metadata: dict = None):
         in_file= self.source_data['file_path']
         fs = 10000# hard-code here, for now. TODO: set as property to pass in
         sampling_period = 1.0/fs
         velocity = [i for i in np.load(in_file)] #treadmill velocity
         timestamps = np.arange(len(velocity))/fs
-        time = TimeSeries(name='Time',
-                              data=H5DataIO(timestamps, compression="gzip"),
-                              unit='s',
-                              resolution=sampling_period,
-                              timestamps=H5DataIO(timestamps, compression="gzip"))
         velocity_ts = TimeSeries(name='Velocity',
                                 data=H5DataIO(velocity, compression="gzip"),
                                 unit='cm/s',
@@ -47,5 +42,4 @@ class TreadmillBehaviorDataInterface(BaseDataInterface):
         behavioral_processing_module = check_module(nwbfile, 'behavior',
                                                             'contains processed behavioral data')
         behavioral_processing_module.add_data_interface(velocity_ts)
-        behavioral_processing_module.add_data_interface(time)
     
