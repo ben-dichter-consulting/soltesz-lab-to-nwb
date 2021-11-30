@@ -1,15 +1,13 @@
 """Authors: Cesar Echavarria and Ben Dichter."""
 
 from nwb_conversion_tools import NWBConverter
-
 from treadmillbehaviordatainterface import TreadmillBehaviorDataInterface
+
 
 class DataNWBConverter(NWBConverter):
     """Primary conversion class for the Soltesz Lab processing pipeline."""
 
-    data_interface_classes = dict(
-        TreadmillData=TreadmillBehaviorDataInterface
-    )
+    data_interface_classes = dict(TreadmillData=TreadmillBehaviorDataInterface)
 
     # def __init__(self, source_data):
     #     """
