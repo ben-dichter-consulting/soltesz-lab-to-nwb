@@ -9,18 +9,16 @@ class DataNWBConverter(NWBConverter):
 
     data_interface_classes = dict(TreadmillData=TreadmillBehaviorDataInterface)
 
-    # def __init__(self, source_data):
-    #     """
-    #     Initialize the NWBConverter object.
-    #     """
+    def __init__(self, source_data):
+        """
+        Initialize the NWBConverter object.
+        """
+        super().__init__(source_data=source_data)
 
-    #     super().__init__(source_data=source_data)
-
-    # def get_metadata(self):
-    #     metadata = super().get_metadata()
-    #     metadata['NWBFile'].update(
-    #             institution="Stanford",
-    #             lab="Soltesz"
-    #     )
-
-    #     return metadata
+    def get_metadata(self):
+        metadata = super().get_metadata()
+        metadata["NWBFile"].update(
+            institution="Stanford",
+             lab="Soltesz"
+        )
+        return metadata

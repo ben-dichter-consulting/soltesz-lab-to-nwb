@@ -21,25 +21,21 @@ class TreadmillBehaviorDataInterface(BaseDataInterface):
             required=["file_path"], properties=dict(file_path=dict(type="string"))
         )
 
-    # def get_metadata_schema(self):
-    #     """Compile metadata schemas from each of the data interface objects."""
-    #     metadata_schema = super().get_metadata_schema()
-    #     #metadata_schema = get_base_schema()
-    #     metadata_schema['properties']['TimeSeries'] = get_schema_from_hdmf_class(TimeSeries)
-    #     metadata_schema['required'].append('TimeSeries')
-    #     return metadata_schema
-
-    def run_conversion(self, nwbfile: NWBFile, metadata: dict = None):
+    def run_conversion(
+        self,
+        nwbfile: NWBFile,
+        metadata: dict,
+        sampling_rate: float,
+    ):
         in_file = self.source_data["file_path"]
-        fs = 10000  # hard-code here, for now. TODO: set as property to pass in
-        sampling_period = 1.0 / fs
+        sampling_period = 1.0 / sampling_rate
         velocity = np.load(in_file)  # treadmill velocity
         velocity_ts = TimeSeries(
             name="Velocity",
             data=H5DataIO(velocity, compression="gzip"),
             unit="cm/s",
             resolution=np.nan,
-            rate=float(fs),
+            rate=float(sampling_rate),
             starting_time=float(0),
         )
         behavioral_processing_module = check_module(
