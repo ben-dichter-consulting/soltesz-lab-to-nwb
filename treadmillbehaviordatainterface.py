@@ -2,8 +2,9 @@
 from pynwb import NWBFile, TimeSeries
 from nwb_conversion_tools.basedatainterface import BaseDataInterface
 from nwb_conversion_tools.utils.json_schema import get_base_schema, get_schema_from_hdmf_class
+from nwb_conversion_tools.utils.common_writer_tools import check_module
 from hdmf.backends.hdf5.h5_utils import H5DataIO
-from utils import check_module
+ 
 import numpy as np
 
 class TreadmillBehaviorDataInterface(BaseDataInterface):
