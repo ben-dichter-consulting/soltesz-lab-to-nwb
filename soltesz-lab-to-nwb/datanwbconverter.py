@@ -13,12 +13,6 @@ class DataNWBConverter(NWBConverter):
         OptophysData=SbxImagingInterface
         )
 
-    def __init__(self, source_data):
-        """
-        Initialize the NWBConverter object.
-        """
-        super().__init__(source_data=source_data)
-
     def get_metadata(self):
         metadata = super().get_metadata()
         metadata["NWBFile"].update(
