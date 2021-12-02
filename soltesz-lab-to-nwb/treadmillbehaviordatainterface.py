@@ -13,29 +13,32 @@ import numpy as np
 
 class TreadmillBehaviorDataInterface(BaseDataInterface):
     """Conversion class for running speed behavioral data."""
+    def __init__(self, file_path: str, sampling_rate: float):
+        """
+        Initialize the internal properties of the recording interface.
 
-    @classmethod
-    def get_source_schema(cls):
-        """Compile input schemas from each of the data interface classes."""
-        return dict(
-            required=["file_path"], properties=dict(file_path=dict(type="string"))
-        )
+        Parameters
+        ----------
+        sampling_frequency: float, required
+            Sampling frequency.
+        """
+        self.sampling_rate = sampling_rate
+        self.file_path = file_path
 
     def run_conversion(
         self,
         nwbfile: NWBFile,
         metadata: dict,
-        sampling_rate: float,
     ):
-        in_file = self.source_data["file_path"]
-        sampling_period = 1.0 / sampling_rate
+        in_file = self.file_path
+        sampling_period = 1.0 / self.sampling_rate
         velocity = np.load(in_file)  # treadmill velocity
         velocity_ts = TimeSeries(
             name="Velocity",
             data=H5DataIO(velocity, compression="gzip"),
             unit="cm/s",
             resolution=np.nan,
-            rate=float(sampling_rate),
+            rate=float(self.sampling_rate),
             starting_time=float(0),
         )
         behavioral_processing_module = check_module(
